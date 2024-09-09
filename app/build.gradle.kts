@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     id("org.jetbrains.dokka") version "1.9.20"
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -69,5 +71,24 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     implementation(libs.androidx.material.icons.extended)
+
+    //Hiltの依存関係
     implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
+
+    //Jetpack Media3 の ExoPlayer、UI、共通モジュールへの依存関係
+    implementation(libs.androidx.media3.exoplayer)
+    implementation(libs.androidx.media3.ui)
+    implementation(libs.androidx.media3.common)
+
+    //Media3 Session モジュールへの依存関係(バックグラウンド再生のために利用)
+    implementation(libs.androidx.media3.session)
+
+    //Coil (画像表示に利用)
+    implementation(libs.coil)
+}
+
+kapt {
+    correctErrorTypes = true
 }
